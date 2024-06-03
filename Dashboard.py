@@ -57,7 +57,7 @@ def getResponse(_query):
     analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable.
     Do not add anything on your own. The analysis should be strictly limited to the dataset given.
     Give suitable suggetsions/opinions at the end.'''
-    agent = create_pandas_dataframe_agent(llm,df=_query,agent_type=AgentType.OPENAI_FUNCTIONS,prefix=system_prompt,extra_tools=tools,verbose=True)
+    agent = create_pandas_dataframe_agent(llm,df=_query,agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,prefix=system_prompt)
     ai_msg=agent.invoke(
                     {
                         "input": '''You are a data analyst. You are provided with some customer feedback data. Analyse the data and give a brief and concise
