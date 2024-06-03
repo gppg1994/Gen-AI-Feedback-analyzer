@@ -2,9 +2,6 @@ openai
 pandas
 streamlit
 altair
-time
-calendar
-datetime
 matplotlib
 plotly-express
 collections
