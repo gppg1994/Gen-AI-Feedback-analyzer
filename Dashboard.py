@@ -80,7 +80,7 @@ def main():
     st.write("<h2>Insightify</h2>",unsafe_allow_html=True)
     placeholder=st.columns(6)[5]
     home,st_analysis,catg_analysis,dept_analysis,intg_analysis=st.tabs(["Home","Sentiment Analysis","Category Analysis","Department Analysis"," :sparkles: Intelligent Analysis"])
-    if os.path.exists(r"Input Data/Collection.xlsx"):
+    if os.path.exists(r"Input Data\Collection.xlsx"):
         if 'data' not in st.session_state:        
             st.session_state.data=pd.read_excel("Input Data\Collection.xlsx")
         all_data=st.session_state.data
