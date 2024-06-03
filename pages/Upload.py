@@ -120,14 +120,14 @@ def main():
 
         df_full=pd.concat([df_full,res])
         st.session_state.data=df_full
-        df_full.to_excel("Input Data\Collection.xlsx",sheet_name="Collection",index=None)
+        df_full.to_excel("Input Data/Collection.xlsx",sheet_name="Collection",index=None)
         st.session_state['data']=df_full
         st.session_state['is_uploaded']=True
         if 'key' in st.session_state:
             del st.session_state.key      
             
-    if os.path.exists("Output data\output data.csv") :
-        res=pd.read_csv("Output data\output data.csv")
+    if os.path.exists("Output data/output data.csv") :
+        res=pd.read_csv("Output data/output data.csv")
         
         if 'upload_data' not in st.session_state:
             st.session_state.upload_data=res
