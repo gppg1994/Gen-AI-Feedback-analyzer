@@ -15,7 +15,7 @@ from pandas.api.types import (
 def main():
     st.set_page_config(layout="wide")
     st.write("<h2>Insightify</h2>",unsafe_allow_html=True)
-    df=pd.read_excel("Input Data/Collection.xlsx")
+    df=pd.read_excel("Input Data\Collection.xlsx")
     df=df[['Timestamp','Feedback','Feedback Summary','Age','Source of feedback','Category','Department','Sentiment']]
     modification_container = st.container()
 
