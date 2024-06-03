@@ -296,7 +296,7 @@ def main():
                 for c in row2:
                     c.markdown(category_list[idx])
                     filtered_data=data[(data['month_name']==select_month) & (data['Category']==category_list[idx])]
-                    pie_values=filtered_data.groupby('Sentiment').size().reset_index(name='count')
+                    pie_values=filtered_data['Sentiment'].value_counts().reset_index(name='count')
                     ordered_pie_values=OrderedDict()
                 
                     for category in ['Positive', 'Negative', 'Neutral']:
