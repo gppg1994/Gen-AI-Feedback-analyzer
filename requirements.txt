@@ -1,6 +1,5 @@
 openai
 pandas
-io
 streamlit
 altair
 time
@@ -9,8 +8,6 @@ datetime
 matplotlib
 plotly-express
 collections
-calendar
-os
 plotly
 langchain-openai
 langchain-community
