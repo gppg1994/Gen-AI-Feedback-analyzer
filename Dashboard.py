@@ -414,7 +414,7 @@ def main():
         st.markdown("No data available. Upload a file to continue.")
         st.toast("Redirecting to upload page...")
         time.sleep(3)
-        st.switch_page(r"Pages/Upload.py")
+        st.switch_page(r"pages/Upload.py")
 if __name__=='__main__':
     
     main()
