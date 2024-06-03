@@ -8,7 +8,7 @@ time
 calendar
 datetime
 matplotlib
-plotly.express
+plotly-express
 collections
 calendar
 os
