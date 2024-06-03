@@ -275,7 +275,7 @@ def main():
                 for c in row1:
                     c.markdown(category_list[idx])
                     filtered_data=data[(data['month_name']==select_month) & (data['Category']==category_list[idx])]
-                    pie_values=filtered_data.groupby('Sentiment').value_counts().reset_index(name='count')
+                    pie_values=filtered_data.groupby('Sentiment').size().reset_index(name='count')
                     ordered_pie_values=OrderedDict()
                 
                     for category in ['Positive', 'Negative', 'Neutral']:
@@ -296,7 +296,7 @@ def main():
                 for c in row2:
                     c.markdown(category_list[idx])
                     filtered_data=data[(data['month_name']==select_month) & (data['Category']==category_list[idx])]
-                    pie_values=filtered_data.groupby('Sentiment').value_counts().reset_index(name='count')
+                    pie_values=filtered_data.groupby('Sentiment').size().reset_index(name='count')
                     ordered_pie_values=OrderedDict()
                 
                     for category in ['Positive', 'Negative', 'Neutral']:
@@ -323,7 +323,7 @@ def main():
                     domain=[
                         "Positive",
                         "Negative",
-                        "Neutral"        ],
+                        "Neutral"],
                     range=["#0068C9", "#FF2B2B", "#83C9FF"] #setting custom colours for items
                 )
             with st.container(border=True):
@@ -344,7 +344,7 @@ def main():
                 if select_month==None:
                     select_month=calendar.month_name[dt.date.today().month]
                 filtered_data=data[data['month_name']==select_month]
-                pie_values=filtered_data['Sentiment'].value_counts().reset_index(name='count')
+                pie_values=filtered_data.groupby('Sentiment').size().reset_index(name='count')
                 ordered_pie_values=OrderedDict()
                 
                 #missing_data=[k for k in sentiment_values if k not in pie_values.keys()]
