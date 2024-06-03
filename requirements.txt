@@ -4,7 +4,6 @@ streamlit
 altair
 matplotlib
 plotly-express
-collections
 plotly
 langchain-openai
 langchain-community
