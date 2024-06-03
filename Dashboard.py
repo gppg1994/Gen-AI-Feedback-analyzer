@@ -48,7 +48,7 @@ def getResponse(_query):
     analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable.
     Do not add anything on your own. The analysis should be strictly limited to the dataset given.
     Give suitable suggetsions/opinions at the end.'''
-    
+    st.write(_query)
     response=client.chat.completions.create(
         model=OPENAI_DEPLOYMENT_NAME,
         messages=[{"role":"system","content":system_prompt},{"role":"user","content":str(_query) }],
@@ -61,7 +61,6 @@ def getResponse(_query):
 #st.set_page_config(layout="wide")
 
 def generate_smart_response(_data):
-    st.write(_data)
     if 'key' not in st.session_state:
                 with st.spinner("Loading..."):
                     intg_resp=getResponse(_data[['Timestamp','Feedback Summary','Department','Category','Sentiment','Source of feedback','Age','Location']])
