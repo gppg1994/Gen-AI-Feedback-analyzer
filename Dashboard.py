@@ -210,10 +210,6 @@ def main():
             placeholder.write(f"Customers are mostly discussing about our <b>{data[data['Location']==sats_loc].groupby('Category').size().idxmax()}</b>",unsafe_allow_html=True)
             placeholder=col2_2.container(border=True)
             placeholder.write("Most active user base are of age	:family:")
-            print("Age group: Size")
-            print(data.groupby('Age').size())
-            print("Age group: value_counts")
-            print(data.groupby('Age').value_counts())
             age_grp=data.groupby('Age').size().reset_index(name='count').sort_values(by=['count','Age'],ascending=False).reset_index()
             arr_agegrp=[age_grp['Age'][1],age_grp['Age'][0]]
             arr_agegrp.sort(reverse=True)
