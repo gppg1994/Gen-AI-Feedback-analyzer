@@ -276,14 +276,13 @@ def main():
                     c.markdown(category_list[idx])
                     filtered_data=data[(data['month_name']==select_month) & (data['Category']==category_list[idx])]
                     pie_values=filtered_data['Sentiment'].value_counts().reset_index(name='count')
-                    st.write(pie_values)
                     ordered_pie_values=OrderedDict()
                 
                     for category in ['Positive', 'Negative', 'Neutral']:
                         ordered_pie_values[category] = pie_values.get(category,0)
                     fig=px.pie(pie_values,values='count', 
-                            names='index',
-                            color='index',
+                            names='Sentiment',
+                            color='Sentiment',
                             color_discrete_map={
                                             'Neutral':'#83C9FF',
                                             'Negative':'#FF2B2B',
@@ -304,8 +303,8 @@ def main():
                     for category in ['Positive', 'Negative', 'Neutral']:
                         ordered_pie_values[category] = pie_values.get(category,0)
                     fig=px.pie(pie_values,values='count', 
-                            names='index',
-                            color='index',
+                            names='Sentiment',
+                            color='Sentiment',
                             color_discrete_map={
                                             'Neutral':'#83C9FF',
                                             'Negative':'#FF2B2B',
