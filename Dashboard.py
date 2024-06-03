@@ -1,6 +1,7 @@
 from openai import AzureOpenAI
 from langchain_openai import AzureChatOpenAI
 from langchain_experimental.tools import PythonREPLTool
+from langchain.agents import AgentType
 import pandas as pd
 import json
 from io import StringIO
