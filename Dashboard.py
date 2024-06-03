@@ -16,12 +16,12 @@ import plotly.graph_objects as go
 
 
 OPENAI_API_KEY = "4f4ffeb62271468f9ab3586cfe712d02"
-OPENAI_DEPLOYMENT_NAME = "GetJobDescDetails"
+OPENAI_DEPLOYMENT_NAME = "deploy-gpt4"
 OPENAI_EMBEDDING_MODEL_NAME = "EmbeddingModel"
 MODEL_NAME = "gpt-35-turbo"
 # openai.api_type = "azure"
 AZURE_OPENAI_ENDPOINT = "https://testpoc123.openai.azure.com/"
-AZURE_OPENAI_API_VERSION = "2023-07-01-preview"
+AZURE_OPENAI_API_VERSION = "2024-02-15-preview"
 # openai.api_key = OPENAI_API_KEY
 
 client = AzureOpenAI(
