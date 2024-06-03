@@ -61,6 +61,7 @@ def getResponse(_query):
 #st.set_page_config(layout="wide")
 
 def generate_smart_response(_data):
+    st.write(_data)
     if 'key' not in st.session_state:
                 with st.spinner("Loading..."):
                     intg_resp=getResponse(_data[['Timestamp','Feedback Summary','Department','Category','Sentiment','Source of feedback','Age','Location']])
