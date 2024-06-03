@@ -11,3 +11,4 @@ langchain-experimental
 langchain
 hydralit_components
 openpyxl
+tabulate
