@@ -29,8 +29,13 @@ client = AzureOpenAI(
     api_version= AZURE_OPENAI_API_VERSION,
     azure_endpoint =AZURE_OPENAI_ENDPOINT
     )
-
-
+llm= AzureChatOpenAI(
+            azure_endpoint=AZURE_OPENAI_ENDPOINT,
+            api_key=OPENAI_API_KEY,
+            azure_deployment=OPENAI_DEPLOYMENT_NAME,
+            api_version=AZURE_OPENAI_API_VERSION
+        )
+tools=[PythonREPLTool()]
 def process_feedback(df):
     # Check if "Feedback" column is in the DataFrame
     if 'Feedback' not in df.columns:
@@ -48,15 +53,14 @@ def getResponse(_query):
     analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable.
     Do not add anything on your own. The analysis should be strictly limited to the dataset given.
     Give suitable suggetsions/opinions at the end.'''
-    st.write(str(_query))
-    response=client.chat.completions.create(
-        model=OPENAI_DEPLOYMENT_NAME,
-        messages=[{"role":"system","content":system_prompt},{"role":"user","content":str(_query) }],
-        temperature=0.3
-        
-    )
+    agent = create_pandas_dataframe_agent(llm,df=_query,agent_type=AgentType.OPENAI_FUNCTIONS,prefix=system_prompt,extra_tools=tools,verbose=True)
+    ai_msg=agent.invoke(
+                    {
+                        "input": chat_message
+                    }
+                )
     
-    return response.choices[0].message.content
+    return ai_msg['output']
 
 #st.set_page_config(layout="wide")
 
