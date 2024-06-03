@@ -53,7 +53,7 @@ def process_feedback(df):
 
 def getResponse(_query):
 
-    system_prompt='''You are a data analyst. You are provided with some customer feedback data. '''
+    system_prompt='''You are a data analyst. You are provided with some customer feedback data.
     Give suitable suggetsions/opinions at the end.'''
     agent = create_pandas_dataframe_agent(llm,df=_query,agent_type=AgentType.OPENAI_FUNCTIONS,prefix=system_prompt,extra_tools=tools,verbose=True)
     ai_msg=agent.invoke(
