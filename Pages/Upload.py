@@ -34,7 +34,7 @@ def process_feedback(df):
     return df
 
 def getResponse(_query):
-    prompt_file=open(r"Input Data\Prompt.txt")
+    prompt_file=open(r"Input Data/Prompt.txt")
     system_prompt=prompt_file.read()
     
     examples='''One example is given below:
