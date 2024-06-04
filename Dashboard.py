@@ -116,7 +116,7 @@ def main():
                         'count':[len(data[data['Sentiment']=='Positive']),len(data[data['Sentiment']=='Negative']),len(data[data['Sentiment']=='Neutral'])]
             }
             df_pievalues=pd.DataFrame(data=pie_values)
-            #print(df_pievalues)
+            
             fig=px.pie(pie_values,values='count', 
                             names='Sentiment',
                             color='Sentiment',
@@ -173,11 +173,11 @@ def main():
                             width=60
                             )   
             df_max_cat=df_catg_all.groupby('Category').size().reset_index(name='count').sort_values(by='count',ascending=False).head(2)
-            print(df_catg_all.groupby('Category').size().values.argmax())
+            
             max_id=df_catg_all.groupby('Category').size().values.argmax()
             if df_catg_all.groupby('Category').size().reset_index(name='count').at[max_id,'Category']=='General':
                 max_id=df_category.groupby('Category').size().values.argmax()
-            #print(df_catg_all.groupby('Category').size().reset_index(name='count').sort_values(by='count',ascending=False))
+            
             pull_array=[0]*len(pie_values)
             pull_array[max_id]=0.2
             fig=go.Figure(data=[go.Pie(labels=pie_values['Category'].to_list(),values=pie_values['count'].to_list(),pull=pull_array)])
@@ -215,7 +215,7 @@ def main():
             col2_1,col2_2=col2.columns(2)
             placeholder=col2_1.container(border=True)
             placeholder.write("Most feedback received from:round_pushpin:")  
-            print(data.groupby('Location').value_counts())        
+            
             sats_loc=data.groupby('Location').size().idxmax()
             placeholder.markdown(f"<h4>{sats_loc}</h4>",unsafe_allow_html=True)
             placeholder.write(f"Customers are mostly discussing about our <b>{data[data['Location']==sats_loc].groupby('Category').size().idxmax()}</b>",unsafe_allow_html=True)
@@ -399,7 +399,7 @@ def main():
                 sel_dept=col1.selectbox(label='Select Department',options=dept_list,placeholder=dept_list[0],index=None)
                 sel_senti=col3.selectbox(label='Select Feedback Sentiment',options=['Positive','Negative','Neutral'],placeholder='Positive',index=None)
                 if sel_dept is None and sel_senti is None:
-                    print("88here**")
+                    
                     positive_df=data[(data['Sentiment']=='Positive') & (data['Department']==dept_list[0])].groupby(['month_name','Department']).size().reset_index(name='count')
                 elif sel_dept is None and sel_senti is not None:
                     positive_df=data[(data['Sentiment']==sel_senti) & (data['Department']==dept_list[0])].groupby(['month_name','Department']).size().reset_index(name='count')
@@ -409,8 +409,8 @@ def main():
                     positive_df=data[(data['Sentiment']==sel_senti) & (data['Department']==sel_dept)].groupby(['month_name','Department']).size().reset_index(name='count')
                 all_combinations = [(m, dept) for m in month_names for dept in dept_list]
                 missing_data = pd.DataFrame(all_combinations, columns=['month_name', 'Department'])
-                print("**here**")
-                print(positive_df)
+                
+                
                 positive_df = pd.merge(positive_df, missing_data, on=['month_name', 'Department'], how='right').fillna(0)
                 line_chart=alt.Chart(positive_df).mark_line().encode(
                     x=alt.X('month_name:O', axis=alt.Axis(title='Month', labels=True), scale=alt.Scale(domain=[str(m) for m in month_names]), sort=list(calendar.month_name[1:])),
