@@ -411,7 +411,7 @@ def main():
                     color='Department'
                 )
                 st.altair_chart(line_chart,use_container_width=True)
-            with intg_analysis:
+        with intg_analysis:
             #st.markdown("<h5>Intelligent Analysis</h5>",unsafe_allow_html=True)
             placeholder=st.container(border=True)
             placeholder.write(":sparkles:")
