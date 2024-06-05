@@ -226,13 +226,6 @@ def main():
             arr_agegrp.sort(reverse=True)
             placeholder.markdown(f"<h4>{arr_agegrp[1]}-{arr_agegrp[0]} years</h4>",unsafe_allow_html=True)
             #placeholder.write(f"Customers are mostly unhappy with our <b>{data[data['Location']==unsats_loc].groupby('Category').size().idxmax()}</b>",unsafe_allow_html=True)        
-        with intg_analysis:
-            #st.markdown("<h5>Intelligent Analysis</h5>",unsafe_allow_html=True)
-            placeholder=st.container(border=True)
-            placeholder.write(":sparkles:")
-            feedback_chunks = [data[i:i+5] for i in range(0, len(data), 5)]
-            intg_resp=generate_smart_response(data)
-            placeholder.markdown(f"<i>{intg_resp}</i>",unsafe_allow_html=True)              
         
         with catg_analysis:
             placeholder=st.empty()
@@ -418,6 +411,14 @@ def main():
                     color='Department'
                 )
                 st.altair_chart(line_chart,use_container_width=True)
+            with intg_analysis:
+            #st.markdown("<h5>Intelligent Analysis</h5>",unsafe_allow_html=True)
+            placeholder=st.container(border=True)
+            placeholder.write(":sparkles:")
+            feedback_chunks = [data[i:i+5] for i in range(0, len(data), 5)]
+            intg_resp=generate_smart_response(data)
+            placeholder.markdown(f"<i>{intg_resp}</i>",unsafe_allow_html=True)              
+        
     else:
         st.markdown("No data available. Upload a file to continue.")
         st.toast("Redirecting to upload page...")
