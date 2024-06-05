@@ -53,14 +53,14 @@ def process_feedback(df):
 
 def getResponse(_query):
 
-    system_prompt='''You are a data analyst. You are provided with some customer feedback data. Analyse the data and give a brief and concise
+    system_prompt='''You are a data analyst. You are provided with some customer feedback data. Analyse the data and give a detailed
     analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable.
     Do not add anything on your own. The analysis should be strictly limited to the dataset given.
     Give suitable suggetsions/opinions at the end.'''
     agent = create_pandas_dataframe_agent(llm,df=_query,agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,prefix=f'''You are a data analyst.You may need to provide analysis of the data that has been  provided. You may also be asked intelligent insights that you can draw from the data. Answer the question that has been asked, articulately.''')
     ai_msg=agent.invoke(
                     {
-                        "input": '''You are a data analyst. You are provided with some customer feedback data. Analyse the data and give a brief and concise
+                        "input": '''You are a data analyst. You are provided with some customer feedback data. Analyse the data and give a detailed
     analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable.
     Do not add anything on your own. The analysis should be strictly limited to the dataset given.
     Give suitable suggetsions/opinions at the end.'''
