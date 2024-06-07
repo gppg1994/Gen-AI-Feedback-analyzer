@@ -70,7 +70,7 @@ def main():
     else:
         df_full=st.session_state.data
     if uploaded_file is not None:
-        
+        st.write(uploaded_file.name)
         if  'csv' in uploaded_file.type:        
             df_input=pd.read_csv(uploaded_file) #read the uploaded file
         elif 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' in uploaded_file.type:
