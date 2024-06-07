@@ -70,7 +70,7 @@ def main():
     else:
         df_full=st.session_state.data
     if uploaded_file is not None:
-        st.write(uploaded_file.name)
+        
         if  'csv' in uploaded_file.type:        
             df_input=pd.read_csv(uploaded_file) #read the uploaded file
         elif 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' in uploaded_file.type:
@@ -116,7 +116,7 @@ def main():
         res['Timestamp']=[df_input.loc[list(df_input['Feedback']).index(res['Feedback'][i].strip()),'Timestamp'] for i in range(0,len(res))]
         res=res[['Timestamp','Feedback','Feedback Summary','Age','Location','Source of feedback','Department','Category','Sentiment']]
         res.to_csv("Output data\output data.csv",index=None) #storing to output
-
+        st.write(os.path.abspath("Output data\output data.csv"))
         df_full=pd.concat([df_full,res])
         st.session_state.data=df_full
         df_full.to_excel("Input Data\Collection.xlsx",sheet_name="Collection",index=None)
