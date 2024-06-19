@@ -20,7 +20,7 @@ OPENAI_EMBEDDING_MODEL_NAME = "EmbeddingModel"
 MODEL_NAME = "gpt-35-turbo"
 # openai.api_type = "azure"
 AZURE_OPENAI_ENDPOINT = "https://testpoc123.openai.azure.com/"
-AZURE_OPENAI_API_VERSION = "2024-02-15-preview"
+AZURE_OPENAI_API_VERSION = "2024-02-01"
 
 #For including chat history refer: https://python.langchain.com/v0.1/docs/modules/agents/how_to/custom_agent/
 
