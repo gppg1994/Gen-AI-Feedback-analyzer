@@ -19,6 +19,7 @@ import plotly.graph_objects as go
 from langchain_experimental.agents import create_pandas_dataframe_agent
 
 
+
 OPENAI_API_KEY = "4f4ffeb62271468f9ab3586cfe712d02"
 OPENAI_DEPLOYMENT_NAME = "deploy-gpt4"
 OPENAI_EMBEDDING_MODEL_NAME = "EmbeddingModel"
@@ -57,12 +58,11 @@ def getResponse(_query):
     analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable.
     Do not add anything on your own. The analysis should be strictly limited to the dataset given.
     Give suitable suggetsions/opinions at the end.'''
-    agent = create_pandas_dataframe_agent(llm,df=_query,agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,prefix=f'''You are a data analyst.You may need to provide analysis of the data that has been  provided. You may also be asked intelligent insights that you can draw from the data. Answer the question that has been asked, articulately.''')
+    agent = create_pandas_dataframe_agent(llm,df=_query,agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,prefix=f'''You are a data analyst.You may need to provide analysis of the data that has been  provided. You may also be asked intelligent insights that you can draw from the data. Answer the question that has been asked, articulately.''',allow_dangerous_requests=True)
     ai_msg=agent.invoke(
                     {
                         "input": '''You are a data analyst. You are provided with some customer feedback data. Analyse the data and give a detailed
-    analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable.
-    Do not add anything on your own. The analysis should be strictly limited to the dataset given.
+    analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable. The analysis should be strictly limited to the dataset given.
     Give suitable suggetsions/opinions at the end.'''
                     }
                 )
@@ -285,8 +285,8 @@ def main():
                     for category in ['Positive', 'Negative', 'Neutral']:
                         ordered_pie_values[category] = pie_values.get(category,0)
                     fig=px.pie(pie_values,values='count', 
-                            names='Sentiment',
-                            color='Sentiment',
+                            names='index',
+                            color='index',
                             color_discrete_map={
                                             'Neutral':'#83C9FF',
                                             'Negative':'#FF2B2B',
@@ -307,8 +307,8 @@ def main():
                     for category in ['Positive', 'Negative', 'Neutral']:
                         ordered_pie_values[category] = pie_values.get(category,0)
                     fig=px.pie(pie_values,values='count', 
-                            names='Sentiment',
-                            color='Sentiment',
+                            names='index',
+                            color='index',
                             color_discrete_map={
                                             'Neutral':'#83C9FF',
                                             'Negative':'#FF2B2B',
@@ -359,8 +359,8 @@ def main():
                     ordered_pie_values[category] = pie_values.get(category,0)
                 
                 fig=px.pie(pie_values,values='count', 
-                        names='Sentiment',    
-                        color='Sentiment',                    
+                        names='index',    
+                        color='index',                    
                         color_discrete_map={
                                             'Neutral':'#83C9FF',
                                             'Negative':'#FF2B2B',
