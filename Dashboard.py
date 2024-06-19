@@ -39,7 +39,7 @@ llm= AzureChatOpenAI(
             azure_deployment=OPENAI_DEPLOYMENT_NAME,
             api_version=AZURE_OPENAI_API_VERSION
         )
-tools=[PythonREPLTool()]
+#tools=[PythonREPLTool()]
 def process_feedback(df):
     # Check if "Feedback" column is in the DataFrame
     if 'Feedback' not in df.columns:
