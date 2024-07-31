@@ -7,13 +7,11 @@ import altair as alt
 import datetime as dt
 import os
 
-OPENAI_API_KEY = "4f4ffeb62271468f9ab3586cfe712d02"
-OPENAI_DEPLOYMENT_NAME = "deploy-gpt4"
+OPENAI_API_KEY = "f29d9eef53fd451388bd7b1bc1a062a7"
+OPENAI_DEPLOYMENT_NAME = "GPT4-Turbo"
 OPENAI_EMBEDDING_MODEL_NAME = "EmbeddingModel"
-MODEL_NAME = "gpt-35-turbo"
-# openai.api_type = "azure"
-AZURE_OPENAI_ENDPOINT = "https://testpoc123.openai.azure.com/"
-AZURE_OPENAI_API_VERSION = "2024-02-15-preview"
+AZURE_OPENAI_ENDPOINT = "https://deployment-gpt4.openai.azure.com/"
+AZURE_OPENAI_API_VERSION = "2024-05-01-preview"
 
 client = AzureOpenAI(
     api_key=OPENAI_API_KEY,  
