@@ -12,3 +12,4 @@ langchain
 hydralit_components
 openpyxl
 tabulate
+python-calamine
