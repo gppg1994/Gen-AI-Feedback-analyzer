@@ -20,7 +20,7 @@ from langchain_experimental.agents import create_pandas_dataframe_agent
 
 
 
-OOPENAI_API_KEY = "c8d9627e600842eeaa9d1dac896db384"
+OPENAI_API_KEY = "c8d9627e600842eeaa9d1dac896db384"
 OPENAI_DEPLOYMENT_NAME = "BuddyAssistChatModel"
 OPENAI_EMBEDDING_MODEL_NAME = "EmbeddingModel"
 AZURE_OPENAI_ENDPOINT = "https://buddyassistpoc.openai.azure.com/"
