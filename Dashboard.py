@@ -20,10 +20,10 @@ from langchain_experimental.agents import create_pandas_dataframe_agent
 
 
 
-OPENAI_API_KEY = "f29d9eef53fd451388bd7b1bc1a062a7"
-OPENAI_DEPLOYMENT_NAME = "GPT4-Turbo"
+OOPENAI_API_KEY = "c8d9627e600842eeaa9d1dac896db384"
+OPENAI_DEPLOYMENT_NAME = "BuddyAssistChatModel"
 OPENAI_EMBEDDING_MODEL_NAME = "EmbeddingModel"
-AZURE_OPENAI_ENDPOINT = "https://deployment-gpt4.openai.azure.com/"
+AZURE_OPENAI_ENDPOINT = "https://buddyassistpoc.openai.azure.com/"
 AZURE_OPENAI_API_VERSION = "2024-05-01-preview"
 # openai.api_key = OPENAI_API_KEY
 
