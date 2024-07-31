@@ -99,7 +99,7 @@ def main():
         #Progress bar
         for batch in feedback_chunks:
             #getting genAI response
-            df=pd.read_csv(StringIO(getResponse("|".join(batch))), sep=';',names=('Feedback','Feedback Summary','Department','Category','Sentiment'))
+            df=pd.read_csv(StringIO(getResponse("|".join(batch))), sep=';',names=('Feedback','Feedback Summary','Department','Category','Sentiment'),engine='python')
             res=pd.concat([res,df])
             my_bar.progress(percent_complete + (len(res)/(len(feedback_chunks)*5)))
 
