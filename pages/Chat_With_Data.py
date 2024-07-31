@@ -14,11 +14,10 @@ import hydralit_components as hc
 import os,glob
 
 
-
-OPENAI_API_KEY = "f29d9eef53fd451388bd7b1bc1a062a7"
-OPENAI_DEPLOYMENT_NAME = "GPT4-Turbo"
+OPENAI_API_KEY = "c8d9627e600842eeaa9d1dac896db384"
+OPENAI_DEPLOYMENT_NAME = "BuddyAssistChatModel"
 OPENAI_EMBEDDING_MODEL_NAME = "EmbeddingModel"
-AZURE_OPENAI_ENDPOINT = "https://deployment-gpt4.openai.azure.com/"
+AZURE_OPENAI_ENDPOINT = "https://buddyassistpoc.openai.azure.com/"
 AZURE_OPENAI_API_VERSION = "2024-05-01-preview"
 
 #For including chat history refer: https://python.langchain.com/v0.1/docs/modules/agents/how_to/custom_agent/
