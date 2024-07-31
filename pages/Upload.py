@@ -70,9 +70,9 @@ def main():
     if uploaded_file is not None:
         
         if  'csv' in uploaded_file.type:        
-            df_input=pd.read_csv(uploaded_file) #read the uploaded file
+            df_input=pd.read_csv(uploaded_file,engine='python') #read the uploaded file
         elif 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' in uploaded_file.type:
-            df_input=pd.read_excel(uploaded_file)
+            df_input=pd.read_excel(uploaded_file,engine='python')
         #df_input=process_feedback(df_input)
         df_feedback=pd.DataFrame(columns=df_input.columns.to_list())
         df_feedback["Feedback"]=['\"'+df_input['Feedback'][i]+'\"' for i in range(0, len(df_input)) ] #enclosing every feedback with ""
