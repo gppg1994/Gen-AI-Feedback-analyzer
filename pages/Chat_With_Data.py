@@ -102,7 +102,7 @@ def main():
         st.toast("No data loaded. Redirecting to Home page...")
         st.switch_page('Dashboard.py')
     data=st.session_state.data
-    agent = create_pandas_dataframe_agent(st.session_state.openai_client,df=data,agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,prefix=f'''You are a digital assistant working with a data analyst.You need to analyse the given feedbacks. Answer the question that has been asked, articulately.''',verbose=True,allow_dangerous_code=True)
+    agent = create_pandas_dataframe_agent(st.session_state.openai_client,df=data,agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,prefix=f'''You are a digital assistant working on a dataset of customer feedbacks. Answer the question that has been asked, articulately. The answer should be understandable to a normal human being. Evaluate any expresssion if required.''',verbose=True,allow_dangerous_code=True)
     input_msg=st.chat_input("Ask anything about the data...")
     chat(agent=agent,chat_message=input_msg)
 
