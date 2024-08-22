@@ -59,8 +59,8 @@ def getResponse(_query):
     agent = create_pandas_dataframe_agent(llm,df=_query,agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,prefix=f'''You are a data analyst.You may need to provide analysis of the data that has been  provided. You may also be asked intelligent insights that you can draw from the data. Answer the question that has been asked, articulately.''',allow_dangerous_code=True)
     ai_msg=agent.invoke(
                     {
-                        "input": '''You are a data analyst. You are provided with some customer feedback data. Analyse the data and give a detailed
-    analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable. The analysis should be strictly limited to the dataset given.
+                        "input": '''You are a data analyst. You are provided with some customer feedback data. Analyse the data and give an elaborate detailed
+    analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable. 
     Give suitable suggetsions/opinions at the end.'''
                     }
                 )
