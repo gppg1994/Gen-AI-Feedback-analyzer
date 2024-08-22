@@ -56,7 +56,7 @@ def getResponse(_query):
     agent = create_pandas_dataframe_agent(llm,extra_tools=tools,df=_query,agent_type=AgentType.OPENAI_FUNCTIONS,prefix=system_prompt,allow_dangerous_code=True)
     ai_msg=agent.invoke(
                     {
-                        "input": '''Analyse the data and give an elaborate detailed statistical analysis of the data. Evaluate any code/expression if required. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable. 
+                        "input": '''Analyse the data and give an elaborate detailed statistical analysis of the data. DO NOT show any python code. Only perform analysis of the given dataset. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable. 
     Give suitable suggetsions/opinions at the end.'''
                     }
                 )
