@@ -38,7 +38,7 @@ llm= AzureChatOpenAI(
             azure_deployment=OPENAI_DEPLOYMENT_NAME,
             api_version=AZURE_OPENAI_API_VERSION
         )
-#tools=[PythonREPLTool()]
+tools=[PythonREPLTool()]
 def process_feedback(df):
     # Check if "Feedback" column is in the DataFrame
     if 'Feedback' not in df.columns:
@@ -52,15 +52,12 @@ def process_feedback(df):
 
 def getResponse(_query):
 
-    system_prompt='''You are a data analyst. You are provided with some customer feedback data. Analyse the data and give a detailed
-    analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable.
-    Do not add anything on your own. The analysis should be strictly limited to the dataset given.
-    Give suitable suggetsions/opinions at the end.'''
-    agent = create_pandas_dataframe_agent(llm,df=_query,agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,prefix=f'''You are a data analyst.You may need to provide analysis of the data that has been  provided. You may also be asked intelligent insights that you can draw from the data. Answer the question that has been asked, articulately.''',allow_dangerous_code=True)
+    system_prompt='''You are a data analyst working at a customer relations/marketing deoartment of a power and utility company. You are analyzing various feedbacks given by customers.'''
+    agent = create_pandas_dataframe_agent(llm,extra_tools=tools,df=_query,agent_type=AgentType.AgentType.OPENAI_FUNCTIONS,prefix=f'''You are a data analyst.You may need to provide analysis of the data that has been  provided. You may also be asked intelligent insights that you can draw from the data. Answer the question that has been asked, articulately.''',allow_dangerous_code=True)
     ai_msg=agent.invoke(
                     {
-                        "input": '''You are a data analyst. You are provided with some customer feedback data. Analyse the data and give an elaborate detailed
-    analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable. 
+                        "input": '''Analyse the data and give an elaborate detailed
+   statistical analysis of the data. Give insightful inferences by analysing the data. Give your answers in points as well as paragraphs wherever applicable. 
     Give suitable suggetsions/opinions at the end.'''
                     }
                 )
