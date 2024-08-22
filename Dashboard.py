@@ -53,7 +53,7 @@ def process_feedback(df):
 def getResponse(_query):
 
     system_prompt='''You are a data analyst working at a customer relations/marketing deoartment of a power and utility company. You are analyzing various feedbacks given by customers.'''
-    agent = create_pandas_dataframe_agent(llm,extra_tools=tools,df=_query,agent_type=AgentType.AgentType.OPENAI_FUNCTIONS,prefix=f'''You are a data analyst.You may need to provide analysis of the data that has been  provided. You may also be asked intelligent insights that you can draw from the data. Answer the question that has been asked, articulately.''',allow_dangerous_code=True)
+    agent = create_pandas_dataframe_agent(llm,extra_tools=tools,df=_query,agent_type=AgentType.OPENAI_FUNCTIONS,prefix=f'''You are a data analyst.You may need to provide analysis of the data that has been  provided. You may also be asked intelligent insights that you can draw from the data. Answer the question that has been asked, articulately.''',allow_dangerous_code=True)
     ai_msg=agent.invoke(
                     {
                         "input": '''Analyse the data and give an elaborate detailed
