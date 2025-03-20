@@ -167,41 +167,41 @@ def main():
 
         
         #creating tiles for top performers
-        # idx=0
-        # st.markdown("<br><br>",unsafe_allow_html=True)
-        # row_a,row_b,row_c=st.columns(3)
-        # row1,row2=row_a.columns(2)
-        # with row1.container(border=True):
-        #     st.markdown("Total feedbacks processed")
-        #     st.markdown(f"### {len(res)}")
+        idx=0
+        st.markdown("<br><br>",unsafe_allow_html=True)
+        row_a,row_b,row_c=st.columns(3)
+        row1,row2=row_a.columns(2)
+        with row1.container(border=True):
+            st.markdown("Total feedbacks processed")
+            st.markdown(f"### {len(res)}")
          
-        # with row2.container(border=True):
-        #     st.markdown("Positive feedbacks are :thumbsup:")
-        #     st.markdown(f"### {len(res[res['Sentiment']=='Positive'])/len(res)*100:0.0f}%")
-        #     st.markdown(f"Positive feedbacks account for {len(res[res['Sentiment']=='Positive'])} out of total {len(res)}")
-        # row1,row2=row_b.columns(2)
-        # with row1.container(border=True):
-        #     st.markdown("Negative feedbacks are :thumbsdown:")
-        #     st.markdown(f"### {len(res[res['Sentiment']=='Negative'])/len(res)*100:0.0f}%")
-        #     st.markdown(f"Negative feedbacks account for {len(res[res['Sentiment']=='Negative'])} out of total {len(res)}")
+        with row2.container(border=True):
+            st.markdown("Positive feedbacks are :thumbsup:")
+            st.markdown(f"### {len(res[res['Sentiment']=='Positive'])/len(res)*100:0.0f}%")
+            st.markdown(f"Positive feedbacks account for {len(res[res['Sentiment']=='Positive'])} out of total {len(res)}")
+        row1,row2=row_b.columns(2)
+        with row1.container(border=True):
+            st.markdown("Negative feedbacks are :thumbsdown:")
+            st.markdown(f"### {len(res[res['Sentiment']=='Negative'])/len(res)*100:0.0f}%")
+            st.markdown(f"Negative feedbacks account for {len(res[res['Sentiment']=='Negative'])} out of total {len(res)}")
         
-        # with row_c.container(border=True):
-        #     st.markdown("### Feedback by department")
-        #     df_deptRank=res.groupby('Department').size().reset_index(name='Count')
-        #     df_deptRank=df_deptRank.rename(columns={'index':'Department'})
-        #     st.dataframe(df_deptRank,
-        #                 hide_index=True,
-        #                 column_config={
-        #                 "Department": st.column_config.TextColumn(
-        #                     "Department",
-        #                 ),
-        #                 "Count": st.column_config.ProgressColumn(
-        #                     "Count",
-        #                     format="%f",
-        #                     min_value=0,
-        #                     max_value=len(res)
-        #                 )}
-        #     )
+        with row_c.container(border=True):
+            st.markdown("### Feedback by department")
+            df_deptRank=res.groupby('Department').size().reset_index(name='Count')
+            df_deptRank=df_deptRank.rename(columns={'index':'Department'})
+            st.dataframe(df_deptRank,
+                        hide_index=True,
+                        column_config={
+                        "Department": st.column_config.TextColumn(
+                            "Department",
+                        ),
+                        "Count": st.column_config.ProgressColumn(
+                            "Count",
+                            format="%f",
+                            min_value=0,
+                            max_value=len(res)
+                        )}
+            )
         
         with row2.container(border=True):
             st.markdown("This time's best performing category :trophy:")
