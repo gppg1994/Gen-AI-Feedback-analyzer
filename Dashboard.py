@@ -17,7 +17,7 @@ import calendar
 import os
 import plotly.graph_objects as go
 from langchain_experimental.agents import create_pandas_dataframe_agent
-
+from uuid import uuid4
 
 
 OPENAI_API_KEY = "c8d9627e600842eeaa9d1dac896db384"
@@ -289,7 +289,7 @@ def main():
                             hole=0.6
                             )
                     fig.update_layout(showlegend=True,height=200,margin=dict(l=1, r=1, t=1, b=1))
-                    c.plotly_chart(fig,use_container_width=True)
+                    c.plotly_chart(fig,use_container_width=True,key=uuid4())
                     idx+=1
                 for c in row2:
                     c.markdown(category_list[idx])
@@ -311,7 +311,7 @@ def main():
                             hole=0.6
                             )
                     fig.update_layout(showlegend=True,height=200,margin=dict(l=1, r=1, t=1, b=1))
-                    c.plotly_chart(fig,use_container_width=True)
+                    c.plotly_chart(fig,use_container_width=True,key=uuid4())
                     idx+=1
         with st_analysis:
     # Display chart
@@ -362,7 +362,7 @@ def main():
                                             } 
                         )
                 fig.update_layout(showlegend=True,height=300,margin=dict(l=1, r=1, t=1, b=1))
-                st.plotly_chart(fig,use_container_width=True)
+                st.plotly_chart(fig,use_container_width=True,key=uuid4())
         with dept_analysis:
             data.drop('count',axis=1)
             feedback_counts = data.groupby(['month_name', 'Department']).size().reset_index(name='count')
