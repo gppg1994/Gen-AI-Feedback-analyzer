@@ -223,96 +223,97 @@ def main():
         
         with catg_analysis:
             placeholder=st.empty()
-                
-            with placeholder.container(border=True):
-                st.markdown("<h3>Category wise Feedback Trends</h2>",unsafe_allow_html=True)
-                col1,col2=st.columns(2)
-                color_scale = alt.Scale(
-                    domain=[
-                        "Positive",
-                        "Negative",
-                        "Neutral"        ],
-                    range=["#0068C9", "#FF2B2B", "#83C9FF"] #setting custom colours for items
-                )
-                catg_option=col1.selectbox(label="Select category",options=category_list,placeholder=category_list[0],index=None)
-                #st.write(data[data['Sentiment']=='Positive'])
-                
-                if catg_option==None:
-                    catg_df=data[(data['Category']==category_list[0])].groupby(['month_name', 'Sentiment']).size().reset_index(name='count') 
-                else:
-                    catg_df=data[(data['Category']==catg_option)].groupby(['month_name', 'Sentiment']).size().reset_index(name='count') 
-                
-                all_combinations = [(m, cat) for m in month_names for cat in sentiment_values]
-                missing_data = pd.DataFrame(all_combinations, columns=['month_name', 'Sentiment'])
-                catg_df = pd.merge(catg_df, missing_data, on=['month_name', 'Sentiment'], how='right').fillna(0)
-                
-                color_scale = alt.Scale(
-                    domain=[
-                        "Positive",
-                        "Negative",
-                        "Neutral"        ],
-                    range=["#0068C9", "#FF2B2B", "#83C9FF"] #setting custom colours for items
-                )
-                
-                chart=alt.Chart(catg_df).mark_line().encode(
-                    x=alt.X('month_name:O', axis=alt.Axis(title='Month', labels=True), scale=alt.Scale(domain=[str(m) for m in month_names]), sort=list(calendar.month_name[1:])),
-                    y=alt.Y('count:Q', axis=alt.Axis(title=r'Count of Feedbacks')),
-                    color=alt.Color('Sentiment:N',scale=color_scale)
-                )             
-                st.altair_chart(chart,use_container_width=True)  
-                
-            with st.container(border=True):
-                st.markdown("<h3>Feedback Trends</h2>",unsafe_allow_html=True)
-                row0=st.columns(3)
-                row1=st.columns(3)
-                row2=st.columns(3)
-                select_month=row0[0].selectbox(label="Select month",options=month_names,placeholder=calendar.month_name[dt.date.today().month],index=None)
-                if select_month==None:
-                    select_month=calendar.month_name[dt.date.today().month]
-                idx=0
-                for c in row1:
-                    c.markdown(category_list[idx])
-                    filtered_data=data[(data['month_name']==select_month) & (data['Category']==category_list[idx])]
-                    pie_values=filtered_data['Sentiment'].value_counts().reset_index(name='count')
-                    ordered_pie_values=OrderedDict()
-                
-                    for category in ['Positive', 'Negative', 'Neutral']:
-                        ordered_pie_values[category] = pie_values.get(category,0)
-                    fig=px.pie(pie_values,values='count', 
-                            names='Sentiment',
-                            color='Sentiment',
-                            color_discrete_map={
-                                            'Neutral':'#83C9FF',
-                                            'Negative':'#FF2B2B',
-                                            'Positive': '#0068C9'
-                                            }  ,
-                            hole=0.6
-                            )
-                    fig.update_layout(showlegend=True,height=200,margin=dict(l=1, r=1, t=1, b=1))
-                    c.plotly_chart(fig,use_container_width=True,key=uuid4())
-                    idx+=1
-                for c in row2:
-                    c.markdown(category_list[idx])
-                    filtered_data=data[(data['month_name']==select_month) & (data['Category']==category_list[idx])]
-                    pie_values=filtered_data['Sentiment'].value_counts().reset_index(name='count')
+            catg_trends,trends=st.tabs(["Trends by Business Function","Overall Trends"])    
+            with catg_trends:
+                with placeholder.container(border=True):
+                    st.markdown("<h3>Business Function wise Feedback Trends</h2>",unsafe_allow_html=True)
+                    col1,col2=st.columns(2)
+                    color_scale = alt.Scale(
+                        domain=[
+                            "Positive",
+                            "Negative",
+                            "Neutral"        ],
+                        range=["#0068C9", "#FF2B2B", "#83C9FF"] #setting custom colours for items
+                    )
+                    catg_option=col1.selectbox(label="Select function",options=category_list,placeholder=category_list[0],index=None)
+                    #st.write(data[data['Sentiment']=='Positive'])
                     
-                    ordered_pie_values=OrderedDict()
-                
-                    for category in ['Positive', 'Negative', 'Neutral']:
-                        ordered_pie_values[category] = pie_values.get(category,0)
-                    fig=px.pie(pie_values,values='count', 
-                            names='Sentiment',
-                            color='Sentiment',
-                            color_discrete_map={
-                                            'Neutral':'#83C9FF',
-                                            'Negative':'#FF2B2B',
-                                            'Positive': '#0068C9'
-                                            } ,
-                            hole=0.6
-                            )
-                    fig.update_layout(showlegend=True,height=200,margin=dict(l=1, r=1, t=1, b=1))
-                    c.plotly_chart(fig,use_container_width=True,key=uuid4())
-                    idx+=1
+                    if catg_option==None:
+                        catg_df=data[(data['Category']==category_list[0])].groupby(['month_name', 'Sentiment']).size().reset_index(name='count') 
+                    else:
+                        catg_df=data[(data['Category']==catg_option)].groupby(['month_name', 'Sentiment']).size().reset_index(name='count') 
+                    
+                    all_combinations = [(m, cat) for m in month_names for cat in sentiment_values]
+                    missing_data = pd.DataFrame(all_combinations, columns=['month_name', 'Sentiment'])
+                    catg_df = pd.merge(catg_df, missing_data, on=['month_name', 'Sentiment'], how='right').fillna(0)
+                    
+                    color_scale = alt.Scale(
+                        domain=[
+                            "Positive",
+                            "Negative",
+                            "Neutral"        ],
+                        range=["#0068C9", "#FF2B2B", "#83C9FF"] #setting custom colours for items
+                    )
+                    
+                    chart=alt.Chart(catg_df).mark_line().encode(
+                        x=alt.X('month_name:O', axis=alt.Axis(title='Month', labels=True), scale=alt.Scale(domain=[str(m) for m in month_names]), sort=list(calendar.month_name[1:])),
+                        y=alt.Y('count:Q', axis=alt.Axis(title=r'Count of Feedbacks')),
+                        color=alt.Color('Sentiment:N',scale=color_scale)
+                    )             
+                    st.altair_chart(chart,use_container_width=True)  
+            with trends:   
+                with st.container(border=True):
+                    st.markdown("<h3>Feedback Trends</h2>",unsafe_allow_html=True)
+                    row0=st.columns(3)
+                    row1=st.columns(3)
+                    row2=st.columns(3)
+                    select_month=row0[0].selectbox(label="Select month",options=month_names,placeholder=calendar.month_name[dt.date.today().month],index=None)
+                    if select_month==None:
+                        select_month=calendar.month_name[dt.date.today().month]
+                    idx=0
+                    for c in row1:
+                        c.markdown(category_list[idx])
+                        filtered_data=data[(data['month_name']==select_month) & (data['Category']==category_list[idx])]
+                        pie_values=filtered_data['Sentiment'].value_counts().reset_index(name='count')
+                        ordered_pie_values=OrderedDict()
+                    
+                        for category in ['Positive', 'Negative', 'Neutral']:
+                            ordered_pie_values[category] = pie_values.get(category,0)
+                        fig=px.pie(pie_values,values='count', 
+                                names='Sentiment',
+                                color='Sentiment',
+                                color_discrete_map={
+                                                'Neutral':'#83C9FF',
+                                                'Negative':'#FF2B2B',
+                                                'Positive': '#0068C9'
+                                                }  ,
+                                hole=0.6
+                                )
+                        fig.update_layout(showlegend=True,height=200,margin=dict(l=1, r=1, t=1, b=1))
+                        c.plotly_chart(fig,use_container_width=True,key=uuid4())
+                        idx+=1
+                    for c in row2:
+                        c.markdown(category_list[idx])
+                        filtered_data=data[(data['month_name']==select_month) & (data['Category']==category_list[idx])]
+                        pie_values=filtered_data['Sentiment'].value_counts().reset_index(name='count')
+                        
+                        ordered_pie_values=OrderedDict()
+                    
+                        for category in ['Positive', 'Negative', 'Neutral']:
+                            ordered_pie_values[category] = pie_values.get(category,0)
+                        fig=px.pie(pie_values,values='count', 
+                                names='Sentiment',
+                                color='Sentiment',
+                                color_discrete_map={
+                                                'Neutral':'#83C9FF',
+                                                'Negative':'#FF2B2B',
+                                                'Positive': '#0068C9'
+                                                } ,
+                                hole=0.6
+                                )
+                        fig.update_layout(showlegend=True,height=200,margin=dict(l=1, r=1, t=1, b=1))
+                        c.plotly_chart(fig,use_container_width=True,key=uuid4())
+                        idx+=1
         with st_analysis:
     # Display chart
             data['count']=1
@@ -325,86 +326,92 @@ def main():
                         "Neutral"],
                     range=["#0068C9", "#FF2B2B", "#83C9FF"] #setting custom colours for items
                 )
-            with st.container(border=True):
-                st.markdown("<h3>Feedback Trends by Sentiment</h3>",unsafe_allow_html=True)
-                bar_chart=alt.Chart(data).mark_bar().encode(
-                    x=alt.X('month_name:O', axis=alt.Axis(title='Month', labels=True), scale=alt.Scale(domain=[str(m) for m in month_names]), sort=list(calendar.month_name[1:])),
-                    #x=alt.X('month_name:N',sort=alt.SortField('month','ascending'),axis=alt.Axis(title="Month")),
-                    y=alt.Y('sum(count)',axis=alt.Axis(title="Count of Feedback")),
-                    xOffset='Sentiment',
-                    color=alt.Color('Sentiment',scale=color_scale)
-                    #column='sentiment:N'
-                )
-                st.altair_chart(bar_chart,use_container_width=True)
-            with st.container(border=True):
-                st.markdown("<h3>Feedback Trends</h3>",unsafe_allow_html=True)
-                col1,col2=st.columns(2)        
-                select_month=col1.selectbox(key="stSentiAnalysisMonth",label='Select month',options=month_names,placeholder=calendar.month_name[dt.date.today().month],index=None)
-                if select_month==None:
-                    select_month=calendar.month_name[dt.date.today().month]
-                filtered_data=data[data['month_name']==select_month]
-                pie_values=filtered_data['Sentiment'].value_counts().reset_index(name='count')
-                ordered_pie_values=OrderedDict()
-                
-                #missing_data=[k for k in sentiment_values if k not in pie_values.keys()]
-                #for miss in missing_data:
-                #    pie_values[miss]=0
-                for category in sentiment_values:
-                    ordered_pie_values[category] = pie_values.get(category,0)
-                
-                fig=px.pie(pie_values,values='count', 
-                        names='Sentiment',    
-                        color='Sentiment',                    
-                        color_discrete_map={
-                                            'Neutral':'#83C9FF',
-                                            'Negative':'#FF2B2B',
-                                            'Positive': '#0068C9'
-                                            } 
-                        )
-                fig.update_layout(showlegend=True,height=300,margin=dict(l=1, r=1, t=1, b=1))
-                st.plotly_chart(fig,use_container_width=True,key=uuid4())
+            st_trends,trends=st.tabs(["Trends by sentiment","Overall Trends"])
+            with st_trends:
+                with st.container(border=True):
+                    st.markdown("<h3>Feedback Trends by Sentiment</h3>",unsafe_allow_html=True)
+                    bar_chart=alt.Chart(data).mark_bar().encode(
+                        x=alt.X('month_name:O', axis=alt.Axis(title='Month', labels=True), scale=alt.Scale(domain=[str(m) for m in month_names]), sort=list(calendar.month_name[1:])),
+                        #x=alt.X('month_name:N',sort=alt.SortField('month','ascending'),axis=alt.Axis(title="Month")),
+                        y=alt.Y('sum(count)',axis=alt.Axis(title="Count of Feedback")),
+                        xOffset='Sentiment',
+                        color=alt.Color('Sentiment',scale=color_scale)
+                        #column='sentiment:N'
+                    )
+                    st.altair_chart(bar_chart,use_container_width=True)
+            with trends:
+                with st.container(border=True):
+                    st.markdown("<h3>Feedback Trends</h3>",unsafe_allow_html=True)
+                    col1,col2=st.columns(2)        
+                    select_month=col1.selectbox(key="stSentiAnalysisMonth",label='Select month',options=month_names,placeholder=calendar.month_name[dt.date.today().month],index=None)
+                    if select_month==None:
+                        select_month=calendar.month_name[dt.date.today().month]
+                    filtered_data=data[data['month_name']==select_month]
+                    pie_values=filtered_data['Sentiment'].value_counts().reset_index(name='count')
+                    ordered_pie_values=OrderedDict()
+                    
+                    #missing_data=[k for k in sentiment_values if k not in pie_values.keys()]
+                    #for miss in missing_data:
+                    #    pie_values[miss]=0
+                    for category in sentiment_values:
+                        ordered_pie_values[category] = pie_values.get(category,0)
+                    
+                    fig=px.pie(pie_values,values='count', 
+                            names='Sentiment',    
+                            color='Sentiment',                    
+                            color_discrete_map={
+                                                'Neutral':'#83C9FF',
+                                                'Negative':'#FF2B2B',
+                                                'Positive': '#0068C9'
+                                                } 
+                            )
+                    fig.update_layout(showlegend=True,height=300,margin=dict(l=1, r=1, t=1, b=1))
+                    st.plotly_chart(fig,use_container_width=True,key=uuid4())
         with dept_analysis:
             data.drop('count',axis=1)
             feedback_counts = data.groupby(['month_name', 'Department']).size().reset_index(name='count')
             total_feedback_per_month = feedback_counts.groupby('month_name')['count'].transform('sum')
             feedback_counts['percentage'] = (feedback_counts['count'] / total_feedback_per_month) * 100
-            with st.container(border=True):
-                st.markdown("<h3>Feedback Trends by department</h3>",unsafe_allow_html=True)
-                bar_chart=alt.Chart(feedback_counts).mark_bar().encode(
-                    x=alt.X('month_name:O', axis=alt.Axis(title='Month', labels=True), scale=alt.Scale(domain=[str(m) for m in month_names]), sort=list(calendar.month_name[1:])),
-                    y=alt.Y('percentage:Q',axis=alt.Axis(title=r"% of Feedback")),
-                    xOffset='Department',
-                    color=alt.Color('Department')
-                    #column='sentiment:N'
-                )
-                st.altair_chart(bar_chart,use_container_width=True)
-            with st.container(border=True): 
-                
-                st.markdown("<h3>Feedback Trends</h3>",unsafe_allow_html=True)                     
-                dept_list=['Electric Services','Natural Gas Services','Water Services','Energy Efficiency Programs','Renewable Energy Options','General']
-                col1,col2,col3=st.columns(3)
-                sel_dept=col1.selectbox(label='Select Department',options=dept_list,placeholder=dept_list[0],index=None)
-                sel_senti=col3.selectbox(label='Select Feedback Sentiment',options=['Positive','Negative','Neutral'],placeholder='Positive',index=None)
-                if sel_dept is None and sel_senti is None:
+            dept_trends,trends=st.tabs(["Trends by department","Overall Trends"])
+            with dept_trends:
+                with st.container(border=True):
+                    st.markdown("<h3>Feedback Trends by department</h3>",unsafe_allow_html=True)
+                    bar_chart=alt.Chart(feedback_counts).mark_bar().encode(
+                        x=alt.X('month_name:O', axis=alt.Axis(title='Month', labels=True), scale=alt.Scale(domain=[str(m) for m in month_names]), sort=list(calendar.month_name[1:])),
+                        y=alt.Y('percentage:Q',axis=alt.Axis(title=r"% of Feedback")),
+                        xOffset='Department',
+                        color=alt.Color('Department')
+                        #column='sentiment:N'
+                    )
+                    st.altair_chart(bar_chart,use_container_width=True)
+            with trends:
+                with st.container(border=True): 
                     
-                    positive_df=data[(data['Sentiment']=='Positive') & (data['Department']==dept_list[0])].groupby(['month_name','Department']).size().reset_index(name='count')
-                elif sel_dept is None and sel_senti is not None:
-                    positive_df=data[(data['Sentiment']==sel_senti) & (data['Department']==dept_list[0])].groupby(['month_name','Department']).size().reset_index(name='count')
-                elif sel_dept is not None and sel_senti is None:
-                    positive_df=data[(data['Sentiment']=='Positive') & (data['Department']==sel_dept)].groupby(['month_name','Department']).size().reset_index(name='count')
-                else:
-                    positive_df=data[(data['Sentiment']==sel_senti) & (data['Department']==sel_dept)].groupby(['month_name','Department']).size().reset_index(name='count')
-                all_combinations = [(m, dept) for m in month_names for dept in dept_list]
-                missing_data = pd.DataFrame(all_combinations, columns=['month_name', 'Department'])
-                
-                
-                positive_df = pd.merge(positive_df, missing_data, on=['month_name', 'Department'], how='right').fillna(0)
-                line_chart=alt.Chart(positive_df).mark_line().encode(
-                    x=alt.X('month_name:O', axis=alt.Axis(title='Month', labels=True), scale=alt.Scale(domain=[str(m) for m in month_names]), sort=list(calendar.month_name[1:])),
-                    y=alt.Y('count',axis=alt.Axis(title='Count of feedback',labels=True)),
-                    color='Department'
-                )
-                st.altair_chart(line_chart,use_container_width=True)
+                    st.markdown("<h3>Feedback Trends</h3>",unsafe_allow_html=True)                     
+                    dept_list=['Electric Services','Natural Gas Services','Water Services','Energy Efficiency Programs','Renewable Energy Options','General']
+                    col1,col2,col3=st.columns(3)
+                    sel_dept=col1.selectbox(label='Select Department',options=dept_list,placeholder=dept_list[0],index=None)
+                    sel_senti=col3.selectbox(label='Select Feedback Sentiment',options=['Positive','Negative','Neutral'],placeholder='Positive',index=None)
+                    if sel_dept is None and sel_senti is None:
+                        
+                        positive_df=data[(data['Sentiment']=='Positive') & (data['Department']==dept_list[0])].groupby(['month_name','Department']).size().reset_index(name='count')
+                    elif sel_dept is None and sel_senti is not None:
+                        positive_df=data[(data['Sentiment']==sel_senti) & (data['Department']==dept_list[0])].groupby(['month_name','Department']).size().reset_index(name='count')
+                    elif sel_dept is not None and sel_senti is None:
+                        positive_df=data[(data['Sentiment']=='Positive') & (data['Department']==sel_dept)].groupby(['month_name','Department']).size().reset_index(name='count')
+                    else:
+                        positive_df=data[(data['Sentiment']==sel_senti) & (data['Department']==sel_dept)].groupby(['month_name','Department']).size().reset_index(name='count')
+                    all_combinations = [(m, dept) for m in month_names for dept in dept_list]
+                    missing_data = pd.DataFrame(all_combinations, columns=['month_name', 'Department'])
+                    
+                    
+                    positive_df = pd.merge(positive_df, missing_data, on=['month_name', 'Department'], how='right').fillna(0)
+                    line_chart=alt.Chart(positive_df).mark_line().encode(
+                        x=alt.X('month_name:O', axis=alt.Axis(title='Month', labels=True), scale=alt.Scale(domain=[str(m) for m in month_names]), sort=list(calendar.month_name[1:])),
+                        y=alt.Y('count',axis=alt.Axis(title='Count of feedback',labels=True)),
+                        color='Department'
+                    )
+                    st.altair_chart(line_chart,use_container_width=True)
         with intg_analysis:
             #st.markdown("<h5>Intelligent Analysis</h5>",unsafe_allow_html=True)
             placeholder=st.container(border=True)
