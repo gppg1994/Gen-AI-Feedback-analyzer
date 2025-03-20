@@ -84,7 +84,7 @@ def main():
     st.set_page_config(layout="wide")
     st.write("<h2>Insightify</h2>",unsafe_allow_html=True)
     placeholder=st.columns(6)[5]
-    home,st_analysis,catg_analysis,dept_analysis,intg_analysis=st.tabs(["Home","Sentiment Analysis","Category Analysis","Department Analysis"," :sparkles: Intelligent Analysis"])
+    home,st_analysis,catg_analysis,dept_analysis,intg_analysis=st.tabs(["Home","Sentiment Analysis","Business Function Analysis","Department Analysis"," :sparkles: Intelligent Analysis"])
     if os.path.exists(r"Input Data\Collection.xlsx"):
         if 'data' not in st.session_state:        
             st.session_state.data=pd.read_excel("Input Data\Collection.xlsx")
@@ -222,8 +222,9 @@ def main():
             #placeholder.write(f"Customers are mostly unhappy with our <b>{data[data['Location']==unsats_loc].groupby('Category').size().idxmax()}</b>",unsafe_allow_html=True)        
         
         with catg_analysis:
-            placeholder=st.empty()
+            
             catg_trends,trends=st.tabs(["Trends by Business Function","Overall Trends"])    
+            placeholder=st.empty()
             with catg_trends:
                 with placeholder.container(border=True):
                     st.markdown("<h3>Business Function wise Feedback Trends</h2>",unsafe_allow_html=True)
