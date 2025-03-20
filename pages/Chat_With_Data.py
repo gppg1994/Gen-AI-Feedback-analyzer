@@ -10,7 +10,6 @@ from langchain.agents import AgentType
 from langchain.prompts import MessagesPlaceholder
 from langchain.memory import ConversationBufferMemory
 from langchain.agents import initialize_agent, Tool
-import hydralit_components as hc
 import os,glob
 
 
@@ -29,53 +28,54 @@ def stream_data(text):
         
 def chat(agent,chat_message):
     cwd=os.getcwd()
-    if 'messages' in st.session_state:
-        for message in st.session_state.messages:
-            with st.chat_message(name='user'):
-                st.markdown(f"<span style='float:right;'>{message['input']}</span><br>",unsafe_allow_html=True)
-            with st.chat_message(name='ai'):
-                st.markdown(f"{message['output']}")
-    
-    if chat_message is not None:
-        try:
-            
-            with st.chat_message(name='user'):
-                st.write(f"<span style='float:right;'>{chat_message}</span><br>",unsafe_allow_html=True)
-            with st.spinner("Generating response..."):
-            
-                ai_msg=agent.invoke(
-                    {
-                        "input": chat_message
-                    }
-                )
-            if 'messages' in st.session_state:
-                st.session_state.messages.append(ai_msg)
-            else:
-                st.session_state.messages=[]
-                st.session_state.messages.append(ai_msg)
-
-            #st.write(f"<span style='float:right'>{input_msg}</span>",unsafe_allow_html=True)
-            with st.chat_message(name='ai'):
-                st.write(stream_data(ai_msg['output']))
-                #st.write(f"{stream_data(ai_msg['output'])}")
-            #st.write("</br>",unsafe_allow_html=True)
+    with st.container(border=True):
+        if 'messages' in st.session_state:
+            for message in st.session_state.messages:
+                with st.chat_message(name='user'):
+                    st.markdown(f"<span style='float:right;background-color: coral;'>{message['input']}</span><br>",unsafe_allow_html=True)
+                with st.chat_message(name='ai'):
+                    st.markdown(f"{message['output']}")
+        
+        if chat_message is not None:
+            try:
                 
-
-        except Exception as ex:
-            print(str(ex))
-            with st.chat_message(name='ai'):
-                st.write("Please rephrase your question and ask again")
-            ai_msg={
+                with st.chat_message(name='user'):
+                    st.write(f"<span style='float:right;background-color: coral;'>{chat_message}</span><br>",unsafe_allow_html=True)
+                with st.spinner("Generating response..."):
                 
-                    "input": chat_message,
-                    "output":"Please rephrase your question and ask again."
+                    ai_msg=agent.invoke(
+                        {
+                            "input": chat_message
+                        }
+                    )
+                if 'messages' in st.session_state:
+                    st.session_state.messages.append(ai_msg)
+                else:
+                    st.session_state.messages=[]
+                    st.session_state.messages.append(ai_msg)
+
+                #st.write(f"<span style='float:right'>{input_msg}</span>",unsafe_allow_html=True)
+                with st.chat_message(name='ai'):
+                    st.write(stream_data(ai_msg['output']))
+                    #st.write(f"{stream_data(ai_msg['output'])}")
+                #st.write("</br>",unsafe_allow_html=True)
                     
-            }
-            if 'messages' in st.session_state:
-                st.session_state.messages.append(ai_msg)
-            else:
-                st.session_state.messages=[]
-                st.session_state.messages.append(ai_msg)
+
+            except Exception as ex:
+                print(str(ex))
+                with st.chat_message(name='ai'):
+                    st.write("Please rephrase your question and ask again")
+                ai_msg={
+                    
+                        "input": chat_message,
+                        "output":"Please rephrase your question and ask again."
+                        
+                }
+                if 'messages' in st.session_state:
+                    st.session_state.messages.append(ai_msg)
+                else:
+                    st.session_state.messages=[]
+                    st.session_state.messages.append(ai_msg)
     if "messages" not in st.session_state : 
         st.markdown("<div style='margin-left:30%;margin-top:20%'> <h5> ✨ Chat with your data</span><h5>",unsafe_allow_html=True)
         #input_msg=st.chat_input("Ask anything about the data...")

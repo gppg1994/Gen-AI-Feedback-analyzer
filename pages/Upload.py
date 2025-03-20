@@ -128,7 +128,7 @@ def main():
         if 'upload_data' not in st.session_state:
             st.session_state.upload_data=res
         
-        st.dataframe(res,hide_index=True)
+        
         # res['count']=1
         # total_counts = res.groupby('Category')['count'].transform('sum')
         # res['NormalizedCount'] = (res['count'] / total_counts)*100
@@ -210,7 +210,7 @@ def main():
             st.markdown(f"{res[(res['Sentiment']=='Positive') | (res['Sentiment']=='Neutral')].groupby('Category').size().max()/len(res)*100:.0f}% positive impressions!")
         st.write("</br></br>",unsafe_allow_html=True)
         st.session_state['is_uploaded']=True
-        
+        st.dataframe(res,hide_index=True)
     #chat placeholder. Integrate Llama index code here
 
 if __name__=='__main__':
